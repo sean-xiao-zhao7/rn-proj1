@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    Button,
+    TextInput,
+    FlatList,
+} from "react-native";
 
 export default function App() {
     const [text, setText] = useState("");
@@ -22,12 +29,11 @@ export default function App() {
                 value={text}
             />
             <Button onPress={addGoalHandler} title="Add" />
-            <View>
-                <Text>List of goals</Text>
-                {goals.map((goal) => {
-                    return <Text key={goal + Math.random()}>{goal}</Text>;
-                })}
-            </View>
+            <FlatList
+                data={goals}
+                renderItem={(item) => <Text>{item.item}</Text>}
+                keyExtractor={(item) => item.item + Math.random().toString()}
+            />
         </View>
     );
 }
